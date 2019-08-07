@@ -1,9 +1,6 @@
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 
 public class ReflectionExample {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
@@ -60,6 +57,16 @@ public class ReflectionExample {
                     getType(f.getType()) + " " + f.getName() + ";");
         }
 
+        System.out.println();
+
+        // вывод конструкторов класса
+        Constructor[] constructors = clazz.getDeclaredConstructors();
+        for (Constructor c : constructors) {
+            System.out.print("\t" + getModifiers(c.getModifiers()) + clazz.getSimpleName() + "(");
+            System.out.print(getParameters(c.getParameterTypes()));
+            System.out.println(") {}");
+        }
+
         // выводим методы класса
         Method[] methods = clazz.getDeclaredMethods();
         for (Method m: methods) {
@@ -75,9 +82,9 @@ public class ReflectionExample {
                     getType(m.getReturnType()) + " " + m.getName() + "(");
             System.out.print(getParameters(m.getParameterTypes()));
             System.out.println(") { }");
-
-            System.out.println();
         }
+        System.out.println("}");
+
     }
 
     private static String getParameters(Class[] params) {
