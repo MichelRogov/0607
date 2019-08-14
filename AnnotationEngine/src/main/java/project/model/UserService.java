@@ -1,5 +1,6 @@
 package project.model;
 
+import project.engine.ConsoleInput;
 import project.engine.Service;
 import project.engine.StartMethod;
 
@@ -7,7 +8,8 @@ import project.engine.StartMethod;
 public class UserService {
 
     @StartMethod
-    public void start(int param) {
-        System.out.println("user service");
+    public void start(@ConsoleInput(displayMassage = "Enter user data:") String input) {
+        System.out.println("user service -> start -> input");
+        System.out.println(input);
     }
 }
